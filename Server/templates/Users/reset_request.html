@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>WHO Sudan LogIn</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+</head>
+
+<body class="text-center">
+<div class="container-fluid mb-5">
+    <div class="mx-auto d-block">
+    <img class="img-fluid" alt="Responsive image" src="{{ url_for('static', filename='logo/logo.png' ) }}" >
+</div>
+<div class="mt-5">
+   <form class="form-signin" method="post">
+       {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                  {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+       {{ form.hidden_tag() }}
+       <fieldset>
+           <div>
+               {{ form.email.label(class="sr-only") }}
+                {% if form.email.errors %}
+                    {{ form.email(type="email", class="form-control is-invalid", placeholder="Email Address", autofocus="") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(type="email", class="form-control", placeholder="Email Address", autofocus="") }}
+                {% endif %}
+           </div>
+           <div class="mt-4">
+               {{ form.submit(class="btn btn-outline-info btn-block") }}
+           </div>
+       </fieldset>
+       <p class="mt-4"> <a href="{{url_for('users.login')}}" > Login </a> </p>
+      <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
+    </form>
+</div></div>
+  <script src="{{ url_for('static', filename='js/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

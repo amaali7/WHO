@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card mb-3">
+  <img class="card-img-top" src="{{ url_for('static', filename='news_image/' + news.image) }}" alt="Card image cap">
+  <div class="card-body">
+    <div class="row">
+        <div class="col-md-11">
+              <h3 class="card-title text-center text-info">{{ news.title }}</h3>
+              <h5 class="text-center text-waring">{{ news.date.strftime('%Y-%m-%d') }}</h5>
+        </div>
+        <div class="col">
+          {% if current_user.has_role('superuser') %}
+            <div class="row jusetify-content-center">
+              <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('manager.update_news', news_id=news.id) }}">Update</a>
+              <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+    <p class="card-text">{{ news.content | safe }}</p>
+    <p class="card-text"><small class="text-muted">{{ news.date.strftime('%Y-%m-%d') }}</small></p>
+  </div>
+</div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete News ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{ url_for('manager.delete_news', news_id=news.id) }}" method="POST">
+            <input class="btn btn-danger btn-sm m-1" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

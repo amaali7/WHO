@@ -1,0 +1,148 @@
+{% macro chart_js(id, chart_type, chart_labels, chart_data)%}
+<div class="col-6 holder">
+    <canvas id="{{ id }}" ></canvas>
+    <script>
+    var ctx = document.getElementById("{{ id }}");
+        var chart = new Chart(ctx, {
+            type:'{{ chart_type }}',
+            data:{
+                labels : [
+                {% for item in  chart_labels%}
+                    "{{item}}",
+                {% endfor %}
+                ],
+                datasets : [
+                    {
+                        label:'Test 2',
+                        backgroundColor : "rgba(220,99,3,0.5)",
+                        borderColor : "rgba(220,99,30,0.5)",
+                        data : [
+                            {% for item in chart_data %}
+                            {{item}},
+                            {% endfor %}
+                        ]
+                    }
+
+                ]
+            }
+        });
+</script>
+</div>
+
+{%- endmacro %}
+
+{% macro chart_js_polar(id, chart_type, chart_labels, chart_data, chart_backgroundColor)%}
+<div class="col-6 holder">
+    <canvas id="{{ id }}" ></canvas>
+    <script>
+    var ctx = document.getElementById("{{ id }}");
+        var chart = new Chart(ctx, {
+            type:'{{ chart_type }}',
+            data:{
+                labels : [
+                {% for item in  chart_labels%}
+                    "{{item}}",
+                {% endfor %}
+                ],
+                datasets : [
+                    {
+                        label:'Test 2',
+                        backgroundColor :[
+                        {% for item in  chart_backgroundColor%}
+                            "{{item}}",
+                        {% endfor %}
+                        ],
+                        borderColor : "rgba(220,99,30,0.5)",
+                        data : [
+                            {% for item in chart_data %}
+                            {{item}},
+                            {% endfor %}
+                        ]
+                    }
+
+                ]
+            }
+        });
+</script>
+</div>
+
+{%- endmacro %}
+
+{% macro chart_js_polar_multi(id, chart_type, chart_labels, chart_data)%}
+<div class="col-6 holder">
+    <canvas id="{{ id }}" ></canvas>
+    <script>
+    var ctx = document.getElementById("{{ id }}");
+        var chart = new Chart(ctx, {
+            type:'{{ chart_type }}',
+            data:{
+                labels : [
+                {% for item in  chart_labels%}
+                    "{{item}}",
+                {% endfor %}
+                ],
+                datasets : [
+                    {
+                        label:'Test 2',
+                        backgroundColor :[
+                        {% for item in  chart_data['polarArea']['data1']['color']%}
+                            "{{item}}",
+                        {% endfor %}
+                        ],
+                        borderColor : "rgba(220,99,30,0.5)",
+                        data : [
+                            {% for item in chart_data['polarArea']['data1']['data'] %}
+                            {{item}},
+                            {% endfor %}
+                        ]
+                    },
+                    {
+                        label:'Test 2',
+                        backgroundColor :[
+                        {% for item in  chart_data['polarArea']['data2']['color']%}
+                            "{{item}}",
+                        {% endfor %}
+                        ],
+                        borderColor : "rgba(20,9,30,0.5)",
+                        data : [
+                            {% for item in chart_data['polarArea']['data2']['data'] %}
+                            {{item}},
+                            {% endfor %}
+                        ]
+                    }
+
+                ]
+            }
+        });
+</script>
+</div>
+
+{%- endmacro %}
+
+
+
+
+{% macro pick_color(name ,series, RGBA_Value)%}
+    <div class="">
+        <label class="form-control-label">{{name}}</label>
+        <input class="form-control" id="{{series}}" name="{{series}}" type="text" data-format="rgb" value="{{RGBA_Value}}">
+        <script>
+            $('#{{series}}').minicolors({
+              animationSpeed: 50,
+              animationEasing: 'swing',
+              changeDelay: 100,
+              control: 'hue',
+              defaultValue: '{{ RGBA_Value }}',
+              format: 'rgb',
+              showSpeed: 100,
+              hideSpeed: 100,
+              inline: false,
+              keywords: '',
+              letterCase: 'uppercase',
+              opacity: true,
+              position: 'bottom left',
+              theme: 'bootstrap'
+            });
+        </script>
+    </div>
+{%- endmacro %}

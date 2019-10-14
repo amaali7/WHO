@@ -1,0 +1,436 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="card card-default">
+        <div class="card-body">
+        <div class="card-heading mb-4 mt-2">
+            <h3 class="card-title text-center mb-4" >Data Entering</h3>
+        </div>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+
+                <fieldset class="form-group border-bottom mb-4">
+                    <!-- Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø¹Ø±Ø¨ÙŠ-->
+                    <div class="form-row">
+
+                        <div class="form-group col-md-3">
+                                {{ form.state.label(class="form-control-label") }}
+                                {% if form.state.errors %}
+                                    {{ form.state(class="form-control is-invalid", readonly="readonly") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.state.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.state(class="form-control" , readonly="readonly") }}
+                                {% endif %}
+                            </div>
+                        <div class="form-group col-md-3">
+                            {{ form.locality.label(class="form-control-label") }}
+                            {% if form.locality.errors %}
+                                {{ form.locality(class="form-control is-invalid", readonly="readonly") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.locality.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.locality(class="form-control"  , readonly="readonly") }}
+                            {% endif %}
+                        </div>
+
+
+                        <div class="form-group col-md-3">
+                            {{ form.settlement.label(class="form-control-label") }}
+                            {% if form.settlement.errors %}
+                                {{ form.settlement(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.settlement.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.settlement(class="form-control"  ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.name.label(class="form-control-label") }}
+                            {% if form.name.errors %}
+                                {{ form.name(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.name(class="form-control"  ) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Ø§Ù„Ø§Ø³Ù… Ø§Ù„Ø§Ù†Ø¬Ù„ÙŠØ²ÙŠ-->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                                {{ form.type.label(class="form-control-label") }}
+                                {% if form.type.errors %}
+                                    {{ form.type(class="custom-select is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.type.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.type(class="custom-select" ) }}
+                                {% endif %}
+                            </div>
+                        <div class="form-group col-md-3">
+                            {{ form.other_type.label(class="form-control-label") }}
+                            {% if form.other_type.errors %}
+                                {{ form.other_type(class="form-control is-invalid", readonly="") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.other_type.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.other_type(class="form-control ", readonly="" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.status.label(class="form-control-label") }}
+                            {% if form.status.errors %}
+                                {{ form.status(class="custom-select is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.status.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.status(class="custom-select" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                                {{ form.manage_by.label(class="form-control-label") }}
+                                {% if form.manage_by.errors %}
+                                    {{ form.manage_by(class="form-control is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.manage_by.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.manage_by(class="form-control" ) }}
+                                {% endif %}
+                            </div>
+                    </div>
+                    <!-- Ø§Ù„Ø«Ø§Ù„Ø« -->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            {{ form.longitude.label(class="form-control-label") }}
+                            {% if form.longitude.errors %}
+                                {{ form.longitude(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.longitude.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.longitude(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.latitude.label(class="form-control-label") }}
+                            {% if form.latitude.errors %}
+                                {{ form.latitude(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.latitude.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.latitude(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                        {{ form.date.label(class="form-control-label") }}
+                        {% if form.date.errors %}
+                            {{ form.date(class="form-control  is-invalid", placeholder="Pick a date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.date.errors %}t
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.date(class="form-control ", placeholder="Pick a date" ) }}
+                        {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.e_coli.label(class="form-control-label") }}
+                            {% if form.e_coli.errors %}
+                                {{ form.e_coli(class="custom-select is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.e_coli.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.e_coli(class="custom-select" ) }}
+                            {% endif %}
+                        </div>
+
+
+                    </div>
+                    <!-- Ø§Ù„Ø±Ø§Ø¨Ø¹ -->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            {{ form.sis.label(class="form-control-label") }}
+                            {% if form.sis.errors %}
+                                {{ form.sis(class="custom-select is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.sis.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.sis(class="custom-select" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.risk_analysis.label(class="form-control-label") }}
+                            {% if form.risk_analysis.errors %}
+                                {{ form.risk_analysis(class="form-control is-invalid", readonly="readonly", value="N.A.R") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.risk_analysis.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.risk_analysis(class="form-control", readonly="readonly", value="N.A.R" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.action_take.label(class="form-control-label") }}
+                            {% if form.action_take.errors %}
+                                {{ form.action_take(class="custom-select is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.action_take.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.action_take(class="custom-select" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.if_yes.label(class="form-control-label") }}
+                            {% if form.if_yes.errors %}
+                                {{ form.if_yes(class="form-control  is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.if_yes.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.if_yes(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Ø§Ù„Ø®Ø§Ù…Ø³ -->
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            {{ form.frc.label(class="form-control-label") }}
+                            {% if form.frc.errors %}
+                                {{ form.frc(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.frc.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.frc(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-2">
+                            {{ form.turbidity.label(class="form-control-label") }}
+                            {% if form.turbidity.errors %}
+                                {{ form.turbidity(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.turbidity.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.turbidity(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            {{ form.ph.label(class="form-control-label") }}
+                            {% if form.ph.errors %}
+                                {{ form.ph(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.ph.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.ph(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.tds.label(class="form-control-label") }}
+                            {% if form.tds.errors %}
+                                {{ form.tds(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.tds.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.tds(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.ec.label(class="form-control-label") }}
+                            {% if form.ec.errors %}
+                                {{ form.ec(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.ec.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.ec(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            {{ form.f.label(class="form-control-label") }}
+                            {% if form.f.errors %}
+                                {{ form.f(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.f.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.f(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.no3.label(class="form-control-label") }}
+                            {% if form.no3.errors %}
+                                {{ form.no3(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.no3.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.no3(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.cl2.label(class="form-control-label") }}
+                            {% if form.cl2.errors %}
+                                {{ form.cl2(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.cl2.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.cl2(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-md-3">
+                            {{ form.fe.label(class="form-control-label") }}
+                            {% if form.fe.errors %}
+                                {{ form.fe(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.fe.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.fe(class="form-control" ) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-row justify-content-around pb-3">
+                    <div class="form-group  col-md-1">
+                        {{ form.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('type').addEventListener('change', function() {
+            if (this.value == 'Other') {
+                document.getElementById('other_type').readOnly = false;
+            } else {
+                document.getElementById('other_type').readOnly = true;
+            }
+        });
+
+        document.getElementById('action_take').addEventListener('change', function() {
+            if (this.value == 'Yes' || this.value == 'On Going') {
+                document.getElementById('if_yes').readOnly = false;
+            } else {
+                document.getElementById('if_yes').readOnly = true;
+            }
+        });
+
+
+
+        let state_select =document.getElementById('state');
+        let locality_select =document.getElementById('locality');
+        state_select.onchange = function(){
+            state = state_select.value;
+
+            fetch('/data/locality/'+ state).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+
+                    for (let locality of data.localitys){
+                        optionHTML += '<option value="' + locality.locality_name + '">' + locality.locality_name +'</option>';
+                    }
+
+                    locality_select.innerHTML = optionHTML;
+                });
+            });
+        }
+
+        let e_coli_d =document.getElementById('e_coli');
+        let sis_d =document.getElementById('sis');
+        let risk_analysis_d =document.getElementById('risk_analysis');
+
+        e_coli_d.onchange  = function(){
+            e_coli = e_coli_d.value;
+            sis = sis_d.value;
+            fetch('/data/function/'+ e_coli + ',' +  sis).then(function(response){
+                response.json().then(function(data){
+                    risk_analysis_d.value = data.value
+                });
+            });
+        }
+
+        sis_d.onchange  = function(){
+            e_coli = e_coli_d.value;
+            sis = sis_d.value;
+            fetch('/data/function/'+ e_coli + ',' +  sis).then(function(response){
+                response.json().then(function(data){
+                    risk_analysis_d.value = data.value
+                });
+            });
+        }
+
+
+    </script>
+{% endblock content %}

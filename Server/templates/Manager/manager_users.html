@@ -1,0 +1,217 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title text-center">Users Management</h4>
+        <button type="button" class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#userModal">Add User</button>
+        <div class="tab-container">
+            <div class="table-responsive">
+                <table id="table" class="table dataTable no-footer" role="grid" aria-describedby="data-table_info">
+                    <thead>
+                        <tr role="row">
+                           <th>Username</th>
+                           <th>Control</th>
+                           <th>First Name</th>
+                           <th>Last Name</th>
+                           <th>Email</th>
+                           <th>Start date</th>
+                           <th>State</th>
+                           <th>locality</th>
+                           <th>Role</th>
+                           <th>Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td class="sorting_1">{{ user.username }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                    <form action="{{ url_for('manager.delete_user', user_id=user.id) }}" method="POST">
+                                        <input class="btn btn-outline-danger btn-sm" type="submit" value="Delete">
+                                      </form>
+                                  </div>
+                            </td>
+                            <td>{{ user.first_name }}</td>
+                            <td>{{ user.last_name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.confirmed_at.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ user.state }}</td>
+                            <td>{{ user.locality }}</td>
+                            <td>{% for role in user.roles%}
+                                    {{ role.name }}
+                                {% endfor %}
+                            </td>
+                            <td>{{ user.active }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="userModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header  text-center">
+            <h2 class="modal-title">Add User</h2>
+        </div>
+            <div class="modal-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control form-control is-invalid", placeholder="Username") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control form-control", placeholder="Username") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control is-invalid", placeholder="E-mail") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control", placeholder="E-mail") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                {% if form.first_name.errors %}
+                                    {{ form.first_name(class="form-control form-control is-invalid", placeholder="First Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.first_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.first_name(class="form-control form-control", placeholder="First Name") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {% if form.last_name.errors %}
+                                    {{ form.last_name(class="form-control form-control is-invalid", placeholder="Last Name") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.last_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.last_name(class="form-control form-control", placeholder="Last Name") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                {% if form.state.errors %}
+                                    {{ form.state(class="custom-select is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.state.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.state(class="custom-select") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {% if form.locality.errors %}
+                                    {{ form.locality(class="custom-select  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.locality.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.locality(class="custom-select ") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control form-control is-invalid", placeholder="Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control ", placeholder="Password") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control  is-invalid", placeholder="Confirm Password") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="form-control ", placeholder="Confirm Password") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group  col-sm-6">
+                                {% if form.roles.errors %}
+                                    {{ form.roles(class="custom-select is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.roles.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.roles(class="custom-select")}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-center">
+                            <div class="form-group ">
+                                {{ form.submit(class="btn btn-outline-success") }}
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+            let state_select =document.getElementById('state');
+        let locality_select =document.getElementById('locality');
+        state_select.onchange = function(){
+            state = state_select.value;
+
+            fetch('/data/locality/'+ state).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+
+                    for (let locality of data.localitys){
+                        optionHTML += '<option value="' + locality.locality_name + '">' + locality.locality_name +'</option>';
+                    }
+
+                    locality_select.innerHTML = optionHTML;
+                });
+            });
+        }
+</script>
+
+{% endblock content %}

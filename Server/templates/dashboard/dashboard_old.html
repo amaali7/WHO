@@ -1,0 +1,337 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card text-center">
+  <div class="card-header">
+    <div class="row justify-content-around">
+      <div class="col-4">
+        <h4>{{ dashboard.title }}</h4>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Add Chart</button>
+      </div>
+    </div>
+  </div>
+    <div class="card-body">
+        {% from "macros/__charts.html" import chart_js, chart_js_polar, chart_js_polar_multi, pick_color %}
+        <div class="row">
+            {{ chart_js_polar_multi('idp0', 'bar', labels, datas) }}
+            {{ chart_js_polar_multi('idp1', 'line', labels, datas) }}
+        </div>
+        <div class="row">
+            {{ chart_js_polar_multi('idp2', 'radar', labels, datas) }}
+            {{ chart_js_polar_multi('idp3', 'polarArea', labels, datas) }}
+        </div>
+    </div>
+  <div class="card-footer text-muted">
+    Charts
+  </div>
+</div>
+
+
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form role="form" method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset>
+          <div class="modal-body ">
+            <h5 class="modal-title mb-3 text-center text-primary" >Chart Configuration</h5>
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Main Filter</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Series</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Graph Type</a>
+              </li>
+            </ul>
+
+            <div class="tab-content container mt-3">
+              <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        {{ form.startdate.label(class="form-control-label") }}
+                        {% if form.startdate.errors %}
+                            {{ form.startdate(class="form-control  is-invalid", placeholder="Pick a Date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.startdate.errors %}t
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.startdate(class="form-control ", placeholder="Pick a Date" ) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-sm-6">
+                        {{ form.enddate.label(class="form-control-label") }}
+                        {% if form.enddate.errors %}
+                            {{ form.enddate(class="form-control  is-invalid", placeholder="Pick a Date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.enddate.errors %}t
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.enddate(class="form-control ", placeholder="Pick a Date" ) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        {{ form.statefilter.label(class="form-control-label") }}
+                        {% if form.statefilter.errors %}
+                            {{ form.statefilter(class="custom-select is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.statefilter.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.statefilter(class="custom-select") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-sm-6">
+                        {{ form.localityfilter.label(class="form-control-label") }}
+                        {% if form.localityfilter.errors %}
+                            {{ form.localityfilter(class="custom-select is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.localityfilter.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.localityfilter(class="custom-select") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        {{ form.typefilter.label(class="form-control-label") }}
+                        {% if form.typefilter.errors %}
+                            {{ form.typefilter(class="custom-select is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.typefilter.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.typefilter(class="custom-select") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-sm-6">
+                        {{ form.riskfilter.label(class="form-control-label") }}
+                        {% if form.riskfilter.errors %}
+                            {{ form.riskfilter(class="custom-select  is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.riskfilter.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.riskfilter(class="custom-select ") }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-sm-6">
+                        {{ form.actionfilter.label(class="form-control-label") }}
+                        {% if form.actionfilter.errors %}
+                            {{ form.actionfilter(class="custom-select is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.actionfilter.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.actionfilter(class="custom-select ") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-sm-6">
+                        {{ form.status.label(class="form-control-label") }}
+                        {% if form.status.errors %}
+                            {{ form.status(class="custom-select is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.status.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.status(class="custom-select ") }}
+                        {% endif %}
+                    </div>
+
+                </div>
+              </div>
+              <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                  {{ form.series1.label(class="form-control-label") }}
+                                  {% if form.series1.errors %}
+                                      {{ form.series1(class="custom-select is-invalid") }}
+                                      <div class="invalid-feedback">
+                                          {% for error in form.series1.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      {{ form.series1(class="custom-select") }}
+                                  {% endif %}
+                              </div>
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Background', 'series1_background', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Border', 'series1_border', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                          {{ form.series2.label(class="form-control-label") }}
+                          {% if form.series2.errors %}
+                              {{ form.series2(class="custom-select is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.series2.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.series2(class="custom-select") }}
+                          {% endif %}
+                      </div>
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Background', 'series2_background', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Border', 'series2_border', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                          {{ form.series3.label(class="form-control-label") }}
+                          {% if form.series3.errors %}
+                              {{ form.series3(class="custom-select is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.series3.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.series3(class="custom-select") }}
+                          {% endif %}
+                      </div>
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Background', 'series3_background', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Border', 'series3_border', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                              {{ form.series4.label(class="form-control-label") }}
+                              {% if form.series4.errors %}
+                                  {{ form.series4(class="custom-select is-invalid") }}
+                                  <div class="invalid-feedback">
+                                      {% for error in form.series4.errors %}
+                                          <span>{{ error }}</span>
+                                      {% endfor %}
+                                  </div>
+                              {% else %}
+                                  {{ form.series4(class="custom-select") }}
+                              {% endif %}
+                          </div>
+                    </div>
+                    <div class="col-md-4">
+                            {{pick_color('Background', 'series4_background', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                        <div class="col-md-4">
+                            {{pick_color('Border', 'series4_border', 'rgba(31,110,13,0.5)')}}
+                        </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                 <div class="form-row">
+
+                    <div class="form-group col-sm-6">
+                        {{ form.chart_type.label(class="form-control-label") }}
+                        {% if form.chart_type.errors %}
+                            {{ form.chart_type(class="custom-select  is-invalid", placeholder="Pick a Date") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.chart_type.errors %}t
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.chart_type(class="custom-select ", placeholder="Pick a Date" ) }}
+                        {% endif %}
+                    </div>
+                     <div class="form-group col-sm-6">
+                        {{ form.name.label(class="form-control-label") }}
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control  is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.name.errors %}t
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.name(class="form-control ") }}
+                        {% endif %}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+      <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-4">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        </div>
+        <div class="col-2">
+          {% if form.submit.errors %}
+              {{ form.submit(class=" btn btn-outline-primary is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.submit.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ form.submit(class="btn btn-outline-primary") }}
+          {% endif %}
+        </div>
+      </div>
+          </form>
+    </div>
+  </div>
+</div>
+<script>
+            let state_select =document.getElementById('statefilter');
+        let locality_select =document.getElementById('localityfilter');
+        state_select.onchange = function(){
+            state = state_select.value;
+
+            fetch('/data/locality/'+ state).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+
+                    for (let locality of data.localitys){
+                        optionHTML += '<option value="' + locality.locality_name + '">' + locality.locality_name +'</option>';
+                    }
+
+                    locality_select.innerHTML = optionHTML;
+                });
+            });
+        }
+</script>
+{% endblock content %}

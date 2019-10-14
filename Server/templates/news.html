@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+  {% for news in news_a.items %}
+<div class="col-md-4">
+  <div class="card mb-4 mt-4">
+    <img class="card-img-top" src="{{ url_for('static', filename='news_image/' + news.image) }}" alt="Card image cap">
+    <div class="card-body">
+
+      <h5 class="card-title">{{ news.title }}</h5>
+      <p class="card-text">{{ news.discription }}</p>
+      <p class="card-text"><small class="text-muted">{{ news.date.strftime('%Y-%m-%d') }}</small></p>
+      <a href="{{ url_for('main.news_fully', news=news.id) }}" class="text-waring">Continue reading</a>
+    </div>
+  </div>
+</div>
+
+
+
+{% endfor %}
+</div>
+
+<div class="raw justify-content-center">
+        <div class="col-md-4">
+            {% for news_num in news_a.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+              {% if news_num %}
+                {% if news_a.page == news_num %}
+                  <a class="btn btn-info mb-4" href="{{ url_for('main.news', page=news_num) }}">{{ news_num }}</a>
+                {% else %}
+                  <a class="btn btn-outline-info mb-4" href="{{ url_for('main.news', page=news_num) }}">{{ news_num }}</a>
+                {% endif %}
+              {% else %}
+                ...
+              {% endif %}
+            {% endfor %}
+        </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+    <title> WHO Sudan - {{page_title}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery/jquery-3.3.1.slim.min.js') }}"></script>
+    <!--    Chart JS    -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chartjs/Chart.min.css') }}">
+    <script src="{{ url_for('static', filename='js/chartjs/Chart.min.js') }}"></script>
+    <!--    Color Picker    -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/color/jquery.minicolors.css') }}">
+    <script src="{{ url_for('static', filename='js/color/jquery.minicolors.min.js') }}"></script>
+
+    {% if tablea%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/DataTable/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/DataTable/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/DataTable/responsive.bootstrap4.min.css') }}">
+    {%endif%}
+
+    {% if charta%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chartjs/Chart.min.css') }}">
+    <script src="{{ url_for('static', filename='js/chartjs/Chart.min.js') }}"></script>
+    {% endif %}
+    {% if forma%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datepicker.min.css') }}">
+    {%endif%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-glyphicons.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h3>WHO Sudan</h3>
+            </div>
+
+            <ul class=" components">
+                <p>Water Source</p>
+                {% if current_user.has_role('superuser') %}
+                <li >
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Main Pages</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.home') }}"  > <i class="glyphicon glyphicon-home " ></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('dashboard.dashboard_home') }}"  > <i class="glyphicon glyphicon-dashboard " ></i> Dashboard</a>
+                        </li>
+
+                        <li>
+                             <a href="{{ url_for('main.news') }}" ><i class="glyphicon glyphicon-list-alt" ></i> News</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Manager</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="{{ url_for('manager.add_news') }}" ><i class="glyphicon glyphicon-list-alt" ></i> News Manager</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('manager.users') }}" ><i class="glyphicon glyphicon-user" ></i> Users</a>
+                        </li>
+                        <li>
+                                    <a href="{{ url_for('manager.main_data') }}" ><i class="glyphicon glyphicon-blackboard" ></i> Main Data</a>
+
+                        </li>
+                        <li>
+                                    <a href="{{ url_for('manager.importData') }}" ><i class="glyphicon glyphicon-blackboard" ></i> Import Data</a>
+
+                        </li>
+
+
+                    </ul>
+                    <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false">Data</a>
+                    <ul class="collapse list-unstyled" id="dataSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.data_entering') }}"><i class="glyphicon glyphicon-cloud-upload"></i> Data Entering</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.data') }}" ><i class="glyphicon glyphicon-list-alt"></i> Data</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if current_user.has_role('state_manager') %}
+                <li >
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Main Pages</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.home') }}"  > <i class="glyphicon glyphicon-home " ></i> Home</a>
+                        </li>
+                        <li>
+                             <a href="{{ url_for('main.news') }}" ><i class="glyphicon glyphicon-list-alt" ></i> News</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Manager</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="{{ url_for('manager.users') }}" ><i class="glyphicon glyphicon-user" ></i> Users</a>
+                        </li>
+                    </ul>
+                    <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false">Data</a>
+                    <ul class="collapse list-unstyled" id="dataSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.data_entering') }}"><i class="glyphicon glyphicon-cloud-upload"></i> Data Entering</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.data') }}" ><i class="glyphicon glyphicon-list-alt"></i> Data</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if current_user.has_role('locality_manager') %}
+                <li >
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Main Pages</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.home') }}"  > <i class="glyphicon glyphicon-home " ></i> Home</a>
+                        </li>
+                        <li>
+                             <a href="{{ url_for('main.news') }}" ><i class="glyphicon glyphicon-list-alt" ></i> News</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Manager</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="{{ url_for('manager.users') }}" ><i class="glyphicon glyphicon-user" ></i> Users</a>
+                        </li>
+                    </ul>
+                    <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false">Data</a>
+                    <ul class="collapse list-unstyled" id="dataSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.data_entering') }}"><i class="glyphicon glyphicon-cloud-upload"></i> Data Entering</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.data') }}" ><i class="glyphicon glyphicon-list-alt"></i> Data</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if current_user.has_role('user') %}
+                <li >
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Main Pages</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.home') }}"  > <i class="glyphicon glyphicon-home " ></i> Home</a>
+                        </li>
+                        <li>
+                             <a href="{{ url_for('main.news') }}" ><i class="glyphicon glyphicon-list-alt" ></i> News</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#dataSubmenu" data-toggle="collapse" aria-expanded="false">Data</a>
+                    <ul class="collapse list-unstyled" id="dataSubmenu">
+                        <li>
+                            <a href="{{ url_for('main.data_entering') }}"><i class="glyphicon glyphicon-cloud-upload"></i> Data Entering</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.data') }}" ><i class="glyphicon glyphicon-list-alt"></i> Data</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+
+
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark  my_nav">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-outline-who">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                <span>Menu</span>
+            </button>
+            <button class="btn btn-light d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="glyphicon glyphicon-circle-arrow-left"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item active dropdown">
+
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <span class="dropdown-link-text ">
+                       <img class="rounded-circle bg-white " src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="" width="35" height="35">
+                    {{current_user.username}}
+                   </span>
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-who" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item " href="{{ url_for('users.user_profile') }}">Profile</a>
+                    <a class="dropdown-item" href="{{ url_for('users.logout') }}">LogOut</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container-fluid mb-4">
+    <div class="row justify-content-around mt-3 mb-3">
+        <div class="col-lg-2 col-md-3 col-sm-1">
+          <img class="img-left"  src="{{ url_for('static', filename='logo/logo1.png' ) }}" height="100">
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-1">
+          <img class="img-right"  src="{{ url_for('static', filename='logo/logo0.png' ) }}" height="100" >
+        </div>
+      </div>
+      <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+      </div>
+
+      </div>
+
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+
+        <!-- Popper.JS -->
+        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+        <!-- Bootstrap JS -->
+        <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+        <!-- jQuery Custom Scroller CDN -->
+        <script src="{{ url_for('static', filename='js/jquery/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+
+        {% if tablea %}
+        <script src="{{ url_for('static', filename='js/jquery/DataTable/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap/DataTable/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap/DataTable/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap/DataTable/buttons.bootstrap4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/jszip.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/pdfmake.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/vfs_fonts.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/buttons.html5.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/buttons.print.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/buttons.colVis.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/extra/responsive.bootstrap4.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/app_dataTable.js') }}"></script>
+        {% endif %}
+        {% if forma%}
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
+        <script src="{{ url_for('static', filename='js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/app_date.js') }}"></script>
+        {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+    <script>
+       $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

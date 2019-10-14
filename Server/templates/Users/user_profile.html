@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title mb-3">{{ current_user.username }} - Profile</strong>
+        </div>
+        <div class="card-body">
+            <div class="mx-auto d-block">
+                <img class="rounded-circle mx-auto d-block" src="{{ image_file }}" alt="Card image cap">
+                <h5 class="text-sm-center mt-2 mb-1">{{ current_user.username }}</h5>
+                <div class="location text-sm-center">{{ current_user.email }}</div>
+            </div>
+            <hr>
+            <div class="card-text text-sm-center">
+                <form role="form" method="POST" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                {{ form.firstname.label(class="form-control-label") }}
+                                {% if form.firstname.errors %}
+                                    {{ form.firstname(class="form-control  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.firstname.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.firstname(class="form-control " ,style="border-color:#00aeff") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.lastname.label(class="form-control-label") }}
+                                {% if form.lastname.errors %}
+                                    {{ form.lastname(class="form-control  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.lastname.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.lastname(class="form-control " ,style="border-color:#00aeff") }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                            {{ form.username.label(class="form-control-label") }}
+                            {% if form.username.errors %}
+                                {{ form.username(class="form-control  is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.username(class="form-control" ,style="border-color:#00aeff") }}
+                            {% endif %}
+                        </div>
+                            <div class="form-group col-md-6">
+                            {{ form.email.label(class="form-control-label") }}
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control  is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.email(class="form-control " ,style="border-color:#00aeff") }}
+                            {% endif %}
+                        </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                            {{ form.state.label(class="form-control-label", readonly="readonly")  }}
+                            {% if form.state.errors %}
+                                {{ form.state(class="form-control  is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.state.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.state(class="form-control" ,style="border-color:#00aeff", readonly="readonly")  }}
+                            {% endif %}
+                        </div>
+                            <div class="form-group col-md-6">
+                            {{ form.locality.label(class="form-control-label") }}
+                            {% if form.locality.errors %}
+                                {{ form.locality(class="form-control  is-invalid", readonly="readonly")  }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.locality.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.locality(class="form-control " ,style="border-color:#00aeff", readonly="readonly")  }}
+                            {% endif %}
+                        </div>
+                        </div>
+
+
+
+                        <div class="form-group custom-file mb-4 mt-4">
+                                {{ form.picture.label(class="custom-file-label") }}
+                                {% if form.picture.errors %}
+                                    {{ form.picture(class="custom-file-input  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.picture.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.picture(class="custom-file-input") }}
+                                {% endif %}
+                            </div>
+                    </fieldset>
+                    <hr>
+                    <div class="form-group mt-4 mb-4">
+                        {{ form.submit(class="btn btn-outline-success") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,219 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card card-success">
+                <div class="card-body">
+                <div class="card-heading  mb-4">
+                    <h3 class="card-title">State</h3>
+                </div>
+                    <form role="form" method="POST">
+                        {{ st_form.hidden_tag() }}
+                        <fieldset>
+                            <div class="form-group">
+                                {{ st_form.state_name.label(class="form-control-label") }}
+                                {% if st_form.state_name.errors %}
+                                    {{ st_form.state_name(class="form-control  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in st_form.state_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ st_form.state_name(class="form-control") }}
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            {{ st_form.st_submit(class="btn btn-outline-success") }}
+                        </div>
+                    </form>
+
+                </div>
+                <div class="card-footer">
+                    Add New state to the system
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+       <div class="col-lg-6">
+            <div class="card card-success">
+                <div class="card-body">
+                <div class="card-heading  mb-4">
+                    <h3 class="card-title">Delete State</h3>
+                </div>
+                    <form role="form" method="POST">
+                        {{ ds_form.hidden_tag() }}
+                        <fieldset>
+                            <div class="form-group">
+                                {{ ds_form.stateslist.label(class="form-control-label") }}
+                                {% if ds_form.stateslist.errors %}
+                                    {{ ds_form.stateslist(class="custom-select  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in ds_form.stateslist.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ ds_form.stateslist(class="custom-select") }}
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            {{ ds_form.dst_submit(class="btn btn-outline-danger") }}
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    Delete state from the system
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card card-warning">
+                <div class="card-body">
+                <div class="card-heading">
+                    <h3 class="card-title mb-4  ">Locality</h3>
+                </div>
+                    <form role="form" method="POST">
+                        {{ l_form.hidden_tag() }}
+                        <fieldset>
+                            <div class="form-group">
+                                {{ l_form.l_state_name.label(class="form-control-label") }}
+                                {% if l_form.l_state_name.errors %}
+                                    {{ l_form.l_state_name(class="custom-select is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in l_form.l_state_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ l_form.l_state_name(class="custom-select ") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ l_form.locality_name.label(class="form-control-label") }}
+                                {% if l_form.locality_name.errors %}
+                                    {{ l_form.locality_name(class="form-control  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in l_form.locality_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ l_form.locality_name(class="form-control") }}
+                                {% endif %}
+                            </div>
+
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-3">
+                                {{ l_form.l_submit(class="btn btn-outline-success") }}
+                            </div>
+
+                        </div>
+                    </form>
+                    </div>
+                <div class="card-footer">
+                    You have to select state
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-6">
+            <div class="card card-warning">
+                <div class="card-body">
+                <div class="card-heading">
+                    <h3 class="card-title mb-4  ">Delete Locality</h3>
+                </div>
+                    <form role="form" method="POST">
+                        {{ dl_form.hidden_tag() }}
+                        <fieldset>
+                            <div class="form-group">
+                                {{ dl_form.dstateslist.label(class="form-control-label") }}
+                                {% if dl_form.dstateslist.errors %}
+                                    {{ dl_form.dstateslist(class="custom-select  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in dl_form.dstateslist.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ dl_form.dstateslist(class="custom-select") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ dl_form.localityslist.label(class="form-control-label") }}
+                                {% if dl_form.localityslist.errors %}
+                                    {{ dl_form.localityslist(class="custom-select  is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in dl_form.localityslist.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ dl_form.localityslist(class="custom-select") }}
+                                {% endif %}
+                            </div>
+
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-3">
+                                {{ dl_form.dl_submit(class="btn btn-outline-danger") }}
+                            </div>
+
+                        </div>
+                    </form>
+                    </div>
+                <div class="card-footer">
+                    Delete locality from the system
+                </div>
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+
+    </div>
+
+    <script>
+        let state_select =document.getElementById('s_state_name');
+        let locality_select =document.getElementById('s_locality_name');
+        state_select.onchange = function(){
+            state = state_select.value;
+            fetch('/data/locality/'+ state).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+
+                    for (let locality of data.localitys){
+                        optionHTML += '<option value="' + locality.locality_name + '">' + locality.locality_name +'</option>';
+                    }
+
+                    locality_select.innerHTML = optionHTML;
+                });
+            });
+        }
+        let dstate_select =document.getElementById('dstateslist');
+        let dlocality_select =document.getElementById('localityslist');
+        dstate_select.onchange = function(){
+            state = state_select.value;
+
+            fetch('/data/locality/'+ state).then(function(response){
+                response.json().then(function(data){
+                    let optionHTML = '';
+
+                    for (let locality of data.localitys){
+                        optionHTML += '<option value="' + locality.locality_name + '">' + locality.locality_name +'</option>';
+                    }
+
+                    dlocality_select.innerHTML = optionHTML;
+                });
+            });
+        }
+    </script>
+
+{% endblock content %}

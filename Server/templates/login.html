@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>WHO Sudan LogIn</title>
+
+  {% if Net_CDN %}
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  {% endif %}
+  {% if  not Net_CDN %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  {% endif %}
+    <!-- Bootstrap core CSS -->
+
+
+</head>
+
+<body class="text-center">
+    <div class="container mt-5 mb-5">
+        <div class="mx-auto d-block mt-5">
+            <img class="img-left"  src="{{ url_for('static', filename='logo/logo1.png' ) }}" width="150" >
+            <img class="img-right"  src="{{ url_for('static', filename='logo/logo0.png' ) }}" width="150" >
+        </div>
+    <div class="mt-5">
+        <form class="form-signin" method="post">
+
+           {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                      {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+           {{ form.hidden_tag() }}
+           <fieldset>
+               {{ form.email.label(class="sr-only") }}
+                {% if form.email.errors %}
+                    {{ form.email(type="email", class="form-control is-invalid", placeholder="Email Address", autofocus="") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(type="email", class="form-control", placeholder="Email Address", autofocus="") }}
+                {% endif %}
+
+               {{ form.password.label(class="sr-only") }}
+                {% if form.password.errors %}
+                    {{ form.password(type="email", class="form-control is-invalid", placeholder="Password") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(type="password", class="form-control", placeholder="Password") }}
+                {% endif %}
+
+              <div class="checkbox mb-3">
+                {{ form.remember(type="checkbox", class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+              </div>
+               {{ form.submit(class="btn btn-outline-info btn-block") }}
+           </fieldset>
+           <p class="mt-4"> <a href="{{url_for('users.reset_request')}}" > Forget Password ? </a> </p>
+          <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
+        </form>
+    </div>
+    </div>
+
+    {% if Net_CDN %}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    {% endif %}
+    {% if  not Net_CDN %}
+    <script src="{{ url_for('static', filename='js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    {% endif %}
+</body>
+
+</html>
