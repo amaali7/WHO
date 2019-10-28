@@ -9,8 +9,8 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jsdg99d09g09ggdf0909dfgkgkldfg9dfg09dgkldgkldg09dg9gdkdg09g0909dg09dgkdgkdg'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:8vf1Qws!23456@127.0.0.1/whodb'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:8vf1Qws!23456@127.0.0.1/whodb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # app.config['SQLALCHEMY_ECHO'] = True
 # app.config['SECURITY_PASSWORD_HASH'] = 'bcrypt'
 # app.config['SECURITY_PASSWORD_SALT'] = None
