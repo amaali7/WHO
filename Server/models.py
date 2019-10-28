@@ -106,8 +106,8 @@ class Locality(db.Model):
 class AddNews(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50))
-    discription = db.Column(db.String(250))
-    content = db.Column(db.String(5000), )
+    discription = db.Column(db.String(2500))
+    content = db.Column(db.TEXT(), )
     image = db.Column(db.String(20), nullable=False, default='n1.jpg')
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

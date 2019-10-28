@@ -46,8 +46,8 @@ def dashboard_page(dashboard_id):
         db.session.add(chartdb)
         db.session.commit()
 
-    data = WS_Data.query.filter_by(date > data.startdate).filter_by(date < data.enddate).filter_by(state=Khartoum)
-    print(data)
+    # data = WS_Data.query.filter_by(date > data.startdate).filter_by(date < data.enddate).filter_by(state=Khartoum)
+    # print(data)
     # for chart in chartsindb:
     #     data = GetData(chart)
     #     for d in data:

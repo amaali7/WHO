@@ -233,3 +233,15 @@ a.article:hover {
     display: inline-block;
     margin-right: 25px;
 }
+.news_carousel{
+
+    background-color: rgba(58,140,196,.7);
+//    font-size: 35px;
+    color: #fff;
+    padding: 8px 14px;
+    line-height: 57px;
+    font-weight: 700;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+
+}

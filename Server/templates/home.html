@@ -10,23 +10,23 @@
         <div class="carousel-item active">
             <img class="d-block img-carousel" src="{{ url_for('static', filename='news_image/' + news3[0].image) }}" alt="First Slide">
             <div class="carousel-caption d-none d-md-block">
-                <h5><a href="{{ url_for('main.news_fully', news=news3[0].id) }}" class="text-waring">{{news3[0].title}}</a></h5>
-                <p>{{news3[0].discription}}</p>
+                <h5><a href="{{ url_for('main.news_fully', news=news3[0].id) }}" class=" news_carousel">{{news3[0].title}}</a></h5>
+                <p class="news_carousel">{{news3[0].discription}}</p>
 
             </div>
         </div>
         <div class="carousel-item">
             <img class="d-block img-carousel" src="{{ url_for('static', filename='news_image/' + news3[1].image) }}" alt="Second Slide">
             <div class="carousel-caption d-none d-md-block">
-                <h5><a href="{{ url_for('main.news_fully', news=news3[1].id) }}" class="text-waring">{{news3[1].title}}</a></h5>
-                <p>{{news3[1].discription}}</p>
+                <h5><a href="{{ url_for('main.news_fully', news=news3[1].id) }}" class=" news_carousel">{{news3[1].title}}</a></h5>
+                <p class="news_carousel">{{news3[1].discription}}</p>
             </div>
         </div>
         <div class="carousel-item">
             <img class="d-block img-carousel" src="{{ url_for('static', filename='news_image/' + news3[2].image) }}" alt="Third Slide">
             <div class="carousel-caption d-none d-md-block">
-                <h5><a href="{{ url_for('main.news_fully', news=news3[2].id) }}" class="text-waring">{{news3[2].title}}</a></h5>
-                <p>{{news3[2].discription}}</p>
+                <h5><a href="{{ url_for('main.news_fully', news=news3[2].id) }}" class="news_carousel">{{news3[2].title}}</a></h5>
+                <p class="news_carousel">{{news3[2].discription}}</p>
             </div>
         </div>
     </div>
